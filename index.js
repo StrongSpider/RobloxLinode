@@ -12,8 +12,8 @@ app.use(cors());
 
 app.get("/getregion", async function (req, res) {
     try {
-        const data = await axios.get(`http://ip-api.com/json/${req.ip}?fields=status,countryCode,regionName,city`).data
-        res.send(data)
+        const responce = await axios.get(`http://ip-api.com/json/${req.ip}?fields=status,countryCode,regionName,city`)
+        res.send(responce.data)
     } catch (e) {
         res.send({
             "status": "fail"
