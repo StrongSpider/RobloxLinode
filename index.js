@@ -8,15 +8,29 @@ const cors = require("cors");
 const config = require("./config.json")
 
 const app = express();
+
+app.use(express.json());
 app.use(cors());
 
-app.get("/getregion", async function (req, res) {
+app.post("/serverstart", async function (req, res) {
+    const hicom = JSON.parse(fs.readFileSync(`./hicom.json`, 'utf-8'))
+
     try {
-        const responce = await axios.get(`http://ip-api.com/json/${req.ip}?fields=status,countryCode,regionName,city`)
-        res.send(responce.data)
+        console.log(req.body)
+    } catch (e) {
+
+    }
+
+    try {
+        const region = await axios.get(`http://ip-api.com/json/${req.ip}?fields=status,countryCode,regionName,city`)
+        res.send({
+            region: region.data,
+            hicom: hicom
+        })
     } catch (e) {
         res.send({
-            "status": "fail"
+            region: { "status": "fail" },
+            hicom: hicom
         })
     }
 })
