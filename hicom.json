@@ -1,3 +1,6 @@
 [
-    "TriangleArray"
+    {
+        "name": "TriangleArray",
+        "rank": "DEV"
+    }
 ]
